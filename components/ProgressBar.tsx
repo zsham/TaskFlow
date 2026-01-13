@@ -15,9 +15,9 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ progress, className = '', siz
   };
 
   return (
-    <div className={`w-full bg-slate-100 rounded-full overflow-hidden ${heights[size]} ${className}`}>
+    <div className={`w-full bg-slate-800 rounded-full overflow-hidden ${heights[size]} ${className}`}>
       <div 
-        className="h-full bg-indigo-600 rounded-full transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
+        className="h-full bg-indigo-500 rounded-full transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-[0_0_10px_rgba(99,102,241,0.5)]"
         style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
       />
     </div>

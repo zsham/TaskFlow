@@ -22,8 +22,8 @@ const Dashboard: React.FC<DashboardProps> = ({ tasks }) => {
     const review = tasks.filter(t => t.status === TaskStatus.REVIEW).length;
 
     const data = [
-      { name: 'To Do', value: todo, color: '#94a3b8' },
-      { name: 'In Progress', value: inProgress, color: '#3b82f6' },
+      { name: 'To Do', value: todo, color: '#475569' },
+      { name: 'In Progress', value: inProgress, color: '#6366f1' },
       { name: 'Review', value: review, color: '#f59e0b' },
       { name: 'Done', value: completed, color: '#10b981' },
     ];
@@ -55,35 +55,35 @@ const Dashboard: React.FC<DashboardProps> = ({ tasks }) => {
     <div className="space-y-6">
       {/* Metrics Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-sm">
           <p className="text-sm font-medium text-slate-500 mb-1">Total Tasks</p>
-          <h2 className="text-3xl font-bold text-slate-800">{stats.total}</h2>
+          <h2 className="text-3xl font-bold text-slate-100">{stats.total}</h2>
           <div className="mt-4">
-             <ProgressBar progress={100} size="sm" className="opacity-20" />
+             <ProgressBar progress={100} size="sm" className="opacity-10" />
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-sm">
           <p className="text-sm font-medium text-slate-500 mb-1">Completion Rate</p>
-          <h2 className="text-3xl font-bold text-slate-800">
+          <h2 className="text-3xl font-bold text-slate-100">
             {stats.total > 0 ? Math.round((stats.completed / stats.total) * 100) : 0}%
           </h2>
           <div className="mt-4">
              <ProgressBar progress={stats.total > 0 ? (stats.completed / stats.total) * 100 : 0} size="sm" />
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-sm">
           <p className="text-sm font-medium text-slate-500 mb-1">In Progress</p>
-          <h2 className="text-3xl font-bold text-slate-800">{stats.inProgress}</h2>
+          <h2 className="text-3xl font-bold text-slate-100">{stats.inProgress}</h2>
           <div className="mt-4">
-             <ProgressBar progress={stats.total > 0 ? (stats.inProgress / stats.total) * 100 : 0} size="sm" className="bg-blue-100" />
+             <ProgressBar progress={stats.total > 0 ? (stats.inProgress / stats.total) * 100 : 0} size="sm" className="bg-blue-500/10" />
           </div>
         </div>
       </div>
 
       {/* Visualizations Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm h-[400px] flex flex-col">
-          <h3 className="font-semibold text-slate-800 mb-4">Task Distribution</h3>
+        <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-sm h-[400px] flex flex-col">
+          <h3 className="font-semibold text-slate-200 mb-4">Task Distribution</h3>
           <div className="flex-1">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -94,28 +94,29 @@ const Dashboard: React.FC<DashboardProps> = ({ tasks }) => {
                   innerRadius={60}
                   outerRadius={100}
                   paddingAngle={5}
+                  stroke="#0f172a"
                   dataKey="value"
                 >
                   {stats.data.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip />
+                <Tooltip contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', color: '#f1f5f9' }} />
                 <Legend />
               </PieChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm h-[400px] flex flex-col">
-          <h3 className="font-semibold text-slate-800 mb-4">Tasks by Priority</h3>
+        <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-sm h-[400px] flex flex-col">
+          <h3 className="font-semibold text-slate-200 mb-4">Tasks by Priority</h3>
           <div className="flex-1">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={stats.priorityData}>
-                <XAxis dataKey="name" />
-                <YAxis allowDecimals={false} />
-                <Tooltip />
-                <Bar dataKey="count" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                <XAxis dataKey="name" stroke="#64748b" fontSize={12} />
+                <YAxis allowDecimals={false} stroke="#64748b" fontSize={12} />
+                <Tooltip contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', color: '#f1f5f9' }} />
+                <Bar dataKey="count" fill="#818cf8" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -123,21 +124,21 @@ const Dashboard: React.FC<DashboardProps> = ({ tasks }) => {
       </div>
 
       {/* AI Insights Section */}
-      <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-6 rounded-2xl border border-blue-100 shadow-sm">
+      <div className="bg-gradient-to-br from-indigo-500/5 to-slate-900 p-6 rounded-2xl border border-indigo-500/20 shadow-sm">
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-blue-100 text-blue-600 rounded-lg">
+            <div className="p-2 bg-indigo-500/20 text-indigo-400 rounded-lg">
               <Icons.Sparkles />
             </div>
             <div>
-              <h3 className="font-bold text-slate-800">AI Project Insights</h3>
+              <h3 className="font-bold text-slate-100">AI Project Insights</h3>
               <p className="text-xs text-slate-500">Intelligent analysis of your current workflow</p>
             </div>
           </div>
           <button 
             onClick={handleFetchInsights}
             disabled={loadingInsights || tasks.length === 0}
-            className="px-4 py-2 bg-white text-blue-600 border border-blue-200 rounded-lg text-sm font-medium hover:bg-blue-50 disabled:opacity-50 transition-colors"
+            className="px-4 py-2 bg-slate-800 text-indigo-400 border border-slate-700 rounded-lg text-sm font-medium hover:bg-slate-700 disabled:opacity-50 transition-colors"
           >
             {loadingInsights ? 'Analyzing...' : 'Refresh Insights'}
           </button>
@@ -146,17 +147,17 @@ const Dashboard: React.FC<DashboardProps> = ({ tasks }) => {
         {insights ? (
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             <div className="md:col-span-8 space-y-4">
-              <div className="bg-white/60 backdrop-blur p-4 rounded-xl border border-white">
-                <p className="text-slate-700 text-sm leading-relaxed">
+              <div className="bg-slate-950/50 backdrop-blur p-4 rounded-xl border border-slate-800 text-slate-300">
+                <p className="text-sm leading-relaxed">
                   {insights.summary}
                 </p>
               </div>
               <div className="space-y-2">
-                <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest">Actionable Recommendations</h4>
+                <h4 className="text-xs font-bold text-slate-600 uppercase tracking-widest">Actionable Recommendations</h4>
                 <div className="space-y-2">
                   {insights.recommendations.map((rec, i) => (
-                    <div key={i} className="flex gap-3 bg-white/40 p-3 rounded-lg border border-white/50 text-sm text-slate-600">
-                      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-[10px] font-bold">
+                    <div key={i} className="flex gap-3 bg-slate-900/50 p-3 rounded-lg border border-slate-800 text-sm text-slate-400">
+                      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px] font-bold shadow-lg shadow-indigo-500/20">
                         {i + 1}
                       </span>
                       {rec}
@@ -169,7 +170,7 @@ const Dashboard: React.FC<DashboardProps> = ({ tasks }) => {
               <div className="relative w-32 h-32">
                 <svg className="w-full h-full transform -rotate-90">
                   <circle
-                    className="text-slate-200"
+                    className="text-slate-800"
                     strokeWidth="8"
                     stroke="currentColor"
                     fill="transparent"
@@ -178,7 +179,7 @@ const Dashboard: React.FC<DashboardProps> = ({ tasks }) => {
                     cy="64"
                   />
                   <circle
-                    className="text-blue-500 transition-all duration-1000 ease-out"
+                    className="text-indigo-500 transition-all duration-1000 ease-out"
                     strokeWidth="8"
                     strokeDasharray={364.4}
                     strokeDashoffset={364.4 - (364.4 * insights.productivityScore) / 100}
@@ -191,15 +192,15 @@ const Dashboard: React.FC<DashboardProps> = ({ tasks }) => {
                   />
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-2xl font-bold text-slate-800">{insights.productivityScore}</span>
-                  <span className="text-[10px] font-medium text-slate-500">Efficiency</span>
+                  <span className="text-2xl font-bold text-slate-100">{insights.productivityScore}</span>
+                  <span className="text-[10px] font-medium text-slate-500 uppercase">Efficiency</span>
                 </div>
               </div>
-              <p className="text-center text-xs font-medium text-slate-500">Productivity Score</p>
+              <p className="text-center text-xs font-bold text-slate-600 uppercase tracking-widest">Productivity Score</p>
             </div>
           </div>
         ) : (
-          <div className="h-32 flex items-center justify-center text-slate-400 italic text-sm">
+          <div className="h-32 flex items-center justify-center text-slate-600 italic text-sm border border-slate-800 border-dashed rounded-xl">
             {tasks.length === 0 ? "Add tasks to see insights" : "Click 'Refresh Insights' to generate an analysis"}
           </div>
         )}

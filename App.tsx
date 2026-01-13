@@ -104,7 +104,7 @@ const App: React.FC = () => {
     const newStaff: User = {
       id: Math.random().toString(36).substr(2, 9),
       name, email,
-      picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`,
+      picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=1e293b&color=cbd5e1`,
       role: UserRole.STAFF,
       isActive: true,
       joinedAt: Date.now()
@@ -162,41 +162,41 @@ const App: React.FC = () => {
   ];
 
   if (!currentUser) return (
-    <div className="min-h-[100dvh] flex items-center justify-center bg-[#fdfdfd] p-6 text-center">
-      <div className="max-w-sm w-full bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-10 border border-slate-100 animate-slide-up">
-        <div className="inline-flex p-5 bg-indigo-600 rounded-[1.5rem] text-white mb-8 shadow-xl shadow-indigo-100">
+    <div className="min-h-[100dvh] flex items-center justify-center bg-slate-950 p-6 text-center">
+      <div className="max-w-sm w-full bg-slate-900 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-10 border border-slate-800 animate-slide-up">
+        <div className="inline-flex p-5 bg-indigo-600 rounded-[1.5rem] text-white mb-8 shadow-xl shadow-indigo-500/20">
           <Icons.CheckCircle />
         </div>
-        <h1 className="text-2xl font-bold text-slate-900 mb-2">TaskFlow</h1>
+        <h1 className="text-2xl font-bold text-slate-100 mb-2">TaskFlow</h1>
         <p className="text-slate-500 mb-10 text-sm leading-relaxed">Precision task management for high-output teams.</p>
         <div id="google-signin-btn" className="flex justify-center mb-8" />
-        <div className="pt-6 border-t border-slate-50">
-           <button onClick={() => handleGoogleResponse({ credential: "mock.eyJlbWFpbCI6ImFkbWluQHRlc3QuY29tIiwibmFtZSI6IkFkbWluIFVzZXIiLCJwaWN0dXJlIjoiaHR0cHM6Ly91aS1hdmF0YXJzLmNvbS9hdmF0YXIvQWRtaW4rVXNlcj9iYWNrZ3JvdW5kPTNiODJmNiZjb2xvcj1mZmYiLCJzdWIiOiJhZG1pbi0xIn0=" })} className="text-xs font-black text-indigo-600 uppercase tracking-widest hover:text-indigo-700 transition-colors">Demo Admin Access</button>
+        <div className="pt-6 border-t border-slate-800">
+           <button onClick={() => handleGoogleResponse({ credential: "mock.eyJlbWFpbCI6ImFkbWluQHRlc3QuY29tIiwibmFtZSI6IkFkbWluIFVzZXIiLCJwaWN0dXJlIjoiaHR0cHM6Ly91aS1hdmF0YXJzLmNvbS9hdmF0YXIvQWRtaW4rVXNlcj9iYWNrZ3JvdW5kPTFlMjkzYiZjb2xvcj1mZmYiLCJzdWIiOiJhZG1pbi0xIn0=" })} className="text-xs font-black text-indigo-400 uppercase tracking-widest hover:text-indigo-300 transition-colors">Demo Admin Access</button>
         </div>
       </div>
     </div>
   );
 
   if (!currentUser.isActive) return (
-    <div className="min-h-[100dvh] flex items-center justify-center bg-slate-50 p-6 text-center">
-       <div className="max-w-md bg-white p-12 rounded-[2.5rem] shadow-xl border border-slate-100 animate-slide-up">
-          <div className="w-16 h-16 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-6"><Icons.Clock /></div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-3">Pending Activation</h2>
+    <div className="min-h-[100dvh] flex items-center justify-center bg-slate-950 p-6 text-center">
+       <div className="max-w-md bg-slate-900 p-12 rounded-[2.5rem] shadow-xl border border-slate-800 animate-slide-up">
+          <div className="w-16 h-16 bg-amber-500/10 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-6"><Icons.Clock /></div>
+          <h2 className="text-2xl font-bold text-slate-100 mb-3">Pending Activation</h2>
           <p className="text-slate-500 mb-8 text-sm leading-relaxed">Your workspace account is registered. Please contact your administrator to authorize your access.</p>
-          <button onClick={logout} className="w-full py-3 bg-slate-900 text-white font-semibold rounded-2xl hover:bg-slate-800 transition-all">Sign Out</button>
+          <button onClick={logout} className="w-full py-3 bg-slate-800 text-slate-200 font-semibold rounded-2xl hover:bg-slate-700 transition-all">Sign Out</button>
        </div>
     </div>
   );
 
   return (
-    <div className="flex h-[100dvh] bg-[#fafafa] overflow-hidden flex-col lg:flex-row">
+    <div className="flex h-[100dvh] bg-slate-950 overflow-hidden flex-col lg:flex-row">
       {/* Desktop Sidebar Navigation */}
-      <aside className="w-72 bg-[#f4f4f5] border-r border-slate-200 flex-col p-6 hidden lg:flex relative z-40">
+      <aside className="w-72 bg-slate-900 border-r border-slate-800 flex-col p-6 hidden lg:flex relative z-40">
         <div className="flex items-center gap-3 mb-12 px-2">
-          <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-indigo-100">
+          <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
             <Icons.CheckCircle />
           </div>
-          <span className="font-bold text-slate-900 tracking-tight">TaskFlow</span>
+          <span className="font-bold text-slate-100 tracking-tight">TaskFlow</span>
         </div>
 
         <nav className="flex-1 space-y-1.5 overflow-y-auto custom-scrollbar">
@@ -204,7 +204,7 @@ const App: React.FC = () => {
             <button 
               key={item.id}
               onClick={() => setView(item.id as any)} 
-              className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${view === item.id ? 'sidebar-item-active' : 'text-slate-500 hover:bg-white/50 hover:text-slate-800'}`}
+              className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${view === item.id ? 'sidebar-item-active' : 'text-slate-500 hover:bg-slate-800 hover:text-slate-300'}`}
             >
               {item.icon} {item.label}
             </button>
@@ -212,19 +212,19 @@ const App: React.FC = () => {
         </nav>
 
         <div className="mt-auto pt-6 space-y-4">
-           <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+           <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 shadow-sm">
               <div className="flex items-center gap-3 mb-3">
-                <img src={currentUser.picture} className="w-9 h-9 rounded-xl object-cover" />
+                <img src={currentUser.picture} className="w-9 h-9 rounded-xl object-cover border border-slate-800" />
                 <div className="overflow-hidden">
-                  <p className="text-xs font-bold text-slate-900 truncate">{currentUser.name}</p>
-                  <p className="text-[10px] font-medium text-slate-400 truncate uppercase tracking-widest">{currentUser.role}</p>
+                  <p className="text-xs font-bold text-slate-200 truncate">{currentUser.name}</p>
+                  <p className="text-[10px] font-medium text-slate-500 truncate uppercase tracking-widest">{currentUser.role}</p>
                 </div>
               </div>
               <div className="flex gap-2">
-                <button onClick={() => setIsProfileModalOpen(true)} className="flex-1 py-1.5 text-[10px] font-bold text-slate-500 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors uppercase">Settings</button>
+                <button onClick={() => setIsProfileModalOpen(true)} className="flex-1 py-1.5 text-[10px] font-bold text-slate-400 bg-slate-900 rounded-lg hover:bg-slate-800 border border-slate-800 transition-colors uppercase">Settings</button>
                 <button 
                   onClick={(e) => { e.preventDefault(); logout(); }} 
-                  className="p-1.5 text-slate-400 hover:text-rose-500 transition-colors cursor-pointer" 
+                  className="p-1.5 text-slate-500 hover:text-rose-400 transition-colors cursor-pointer" 
                   title="Logout"
                 >
                   <Icons.LogOut />
@@ -236,31 +236,31 @@ const App: React.FC = () => {
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col min-w-0 h-full overflow-hidden pb-20 lg:pb-0">
-        <header className="h-20 glass border-b border-slate-200 px-6 lg:px-8 flex items-center justify-between flex-shrink-0 z-30">
+        <header className="h-20 glass border-b border-slate-800 px-6 lg:px-8 flex items-center justify-between flex-shrink-0 z-30">
           <div className="flex items-center gap-4 flex-1">
-            <h2 className="text-lg font-bold text-slate-900 capitalize hidden sm:block">{view === 'board' ? 'Workspace Board' : view}</h2>
-            <div className="h-4 w-px bg-slate-200 hidden sm:block" />
+            <h2 className="text-lg font-bold text-slate-100 capitalize hidden sm:block">{view === 'board' ? 'Workspace Board' : view}</h2>
+            <div className="h-4 w-px bg-slate-800 hidden sm:block" />
             <div className="relative w-full sm:w-72">
-               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"><Icons.Search /></span>
+               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"><Icons.Search /></span>
                <input 
                 type="text" placeholder="Search records..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-slate-100/50 rounded-xl text-sm border-transparent focus:border-indigo-100 focus:bg-white focus:ring-4 focus:ring-indigo-50 transition-all outline-none"
+                className="w-full pl-10 pr-4 py-2 bg-slate-900/50 rounded-xl text-sm border border-slate-800 text-slate-200 focus:border-indigo-500 focus:bg-slate-900 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none"
                />
             </div>
           </div>
 
           <div className="flex items-center gap-3 ml-4">
              {view === 'team' ? (
-                <button onClick={() => setIsStaffModalOpen(true)} className="px-4 py-2.5 lg:px-5 bg-slate-900 text-white rounded-xl text-sm font-bold shadow-lg shadow-slate-100 hover:bg-slate-800 hover:-translate-y-0.5 transition-all flex items-center gap-2">
+                <button onClick={() => setIsStaffModalOpen(true)} className="px-4 py-2.5 lg:px-5 bg-slate-100 text-slate-900 rounded-xl text-sm font-bold shadow-lg shadow-white/5 hover:bg-white hover:-translate-y-0.5 transition-all flex items-center gap-2">
                   <Icons.Plus /> <span className="hidden sm:inline">Register Staff</span>
                 </button>
              ) : (
-                <button onClick={() => { setEditingTask(null); setIsModalOpen(true); }} className="px-4 py-2.5 lg:px-5 bg-indigo-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 hover:-translate-y-0.5 transition-all flex items-center gap-2">
+                <button onClick={() => { setEditingTask(null); setIsModalOpen(true); }} className="px-4 py-2.5 lg:px-5 bg-indigo-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-indigo-500/20 hover:bg-indigo-500 hover:-translate-y-0.5 transition-all flex items-center gap-2">
                   <Icons.Plus /> <span className="hidden sm:inline">New Task</span>
                 </button>
              )}
              <div className="lg:hidden">
-               <img src={currentUser.picture} onClick={() => setIsProfileModalOpen(true)} className="w-9 h-9 rounded-xl object-cover cursor-pointer border border-slate-200" />
+               <img src={currentUser.picture} onClick={() => setIsProfileModalOpen(true)} className="w-9 h-9 rounded-xl object-cover cursor-pointer border border-slate-800" />
              </div>
           </div>
         </header>
@@ -280,9 +280,9 @@ const App: React.FC = () => {
                     <div key={status} className="flex flex-col gap-4 min-w-[280px] lg:h-full">
                       <div className="flex items-center justify-between px-2 mb-2 flex-shrink-0">
                         <div className="flex items-center gap-3">
-                           <span className="text-slate-400 font-mono text-lg leading-none">{cols[status].icon}</span>
-                           <h3 className="text-sm font-bold text-slate-800">{cols[status].title}</h3>
-                           <span className="text-[10px] font-black bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">{filteredTasks.filter(t => t.status === status).length}</span>
+                           <span className="text-slate-600 font-mono text-lg leading-none">{cols[status].icon}</span>
+                           <h3 className="text-sm font-bold text-slate-300">{cols[status].title}</h3>
+                           <span className="text-[10px] font-black bg-slate-900 text-slate-500 border border-slate-800 px-2 py-0.5 rounded-full">{filteredTasks.filter(t => t.status === status).length}</span>
                         </div>
                       </div>
                       <div className="lg:flex-1 space-y-4 lg:overflow-y-auto custom-scrollbar pb-4">
@@ -314,14 +314,14 @@ const App: React.FC = () => {
       </main>
 
       {/* Mobile Bottom Navigation Bar */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 h-20 px-6 flex items-center justify-around z-50 shadow-[0_-5px_20px_rgba(0,0,0,0.03)]">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 h-20 px-6 flex items-center justify-around z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
         {navItems.map(item => (
           <button 
             key={item.id}
             onClick={() => setView(item.id as any)} 
-            className={`flex flex-col items-center gap-1.5 transition-all ${view === item.id ? 'text-indigo-600' : 'text-slate-400'}`}
+            className={`flex flex-col items-center gap-1.5 transition-all ${view === item.id ? 'text-indigo-400' : 'text-slate-600'}`}
           >
-            <div className={`p-1 rounded-lg transition-colors ${view === item.id ? 'bg-indigo-50' : ''}`}>
+            <div className={`p-1 rounded-lg transition-colors ${view === item.id ? 'bg-indigo-500/10' : ''}`}>
               {item.icon}
             </div>
             <span className="text-[10px] font-bold uppercase tracking-widest">{item.label}</span>

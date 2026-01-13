@@ -11,32 +11,32 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #fafafa;
-            color: #1a1a1a;
+            background-color: #020617;
+            color: #f1f5f9;
             letter-spacing: -0.01em;
         }
         .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
+            width: 5px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
             background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #e2e8f0;
+            background: #1e293b;
             border-radius: 10px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #cbd5e1;
+            background: #334155;
         }
         .glass {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
         .sidebar-item-active {
-            background: #ffffff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
-            color: #4f46e5;
+            background: #1e293b;
+            color: #818cf8;
+            box-shadow: 0 0 20px rgba(79, 70, 229, 0.1);
         }
         @keyframes slide-up {
             from { opacity: 0; transform: translateY(8px); }
@@ -44,6 +44,9 @@
         }
         .animate-slide-up {
             animation: slide-up 0.3s ease-out forwards;
+        }
+        ::placeholder {
+            color: #475569 !important;
         }
     </style>
 <script type="importmap">
@@ -58,7 +61,7 @@
 }
 </script>
 </head>
-<body>
+<body class="bg-slate-950">
     <div id="root"></div>
 </body>
 </html>

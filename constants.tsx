@@ -2,14 +2,14 @@
 import React from 'react';
 
 export const COLORS = {
-  TODO: 'bg-slate-50 border-slate-200 text-slate-600',
-  IN_PROGRESS: 'bg-indigo-50 border-indigo-100 text-indigo-700',
-  REVIEW: 'bg-amber-50 border-amber-100 text-amber-700',
-  DONE: 'bg-emerald-50 border-emerald-100 text-emerald-700',
-  LOW: 'bg-slate-100 text-slate-600',
-  MEDIUM: 'bg-blue-50 text-blue-700 border border-blue-100',
-  HIGH: 'bg-orange-50 text-orange-700 border border-orange-100',
-  CRITICAL: 'bg-rose-50 text-rose-700 border border-rose-100',
+  TODO: 'bg-slate-800/50 border-slate-700 text-slate-400',
+  IN_PROGRESS: 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400',
+  REVIEW: 'bg-amber-500/10 border-amber-500/20 text-amber-400',
+  DONE: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400',
+  LOW: 'bg-slate-800 text-slate-400 border border-slate-700',
+  MEDIUM: 'bg-blue-500/10 text-blue-400 border border-blue-500/20',
+  HIGH: 'bg-orange-500/10 text-orange-400 border border-orange-500/20',
+  CRITICAL: 'bg-rose-500/10 text-rose-400 border border-rose-500/20',
 };
 
 export const Icons = {
