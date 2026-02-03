@@ -300,6 +300,7 @@ const App: React.FC = () => {
               <div className="animate-slide-up">
                 <TeamView 
                   users={users} 
+                  currentUser={currentUser}
                   tasks={tasks} 
                   onToggleUserStatus={handleToggleUserStatus} 
                   onDeleteUser={handleDeleteUser} 

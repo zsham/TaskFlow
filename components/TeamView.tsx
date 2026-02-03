@@ -1,11 +1,13 @@
 
 import React, { useState, useMemo } from 'react';
-import { User, UserRole, Task, TaskStatus } from '../types';
+import { User, UserRole, Task, TaskStatus, ChatMessage } from '../types';
 import { Icons } from '../constants';
 import ProgressBar from './ProgressBar';
+import ChatInterface from './ChatInterface';
 
 interface TeamViewProps {
   users: User[];
+  currentUser: User;
   tasks: Task[];
   onToggleUserStatus: (userId: string) => void;
   onDeleteUser: (userId: string) => void;
@@ -14,10 +16,20 @@ interface TeamViewProps {
   onRequestAdd: () => void;
 }
 
-const TeamView: React.FC<TeamViewProps> = ({ users, tasks, onToggleUserStatus, onDeleteUser, onAddStaff, onUpdateStaff, onRequestAdd }) => {
+const TeamView: React.FC<TeamViewProps> = ({ 
+  users, 
+  currentUser,
+  tasks, 
+  onToggleUserStatus, 
+  onDeleteUser, 
+  onAddStaff, 
+  onUpdateStaff, 
+  onRequestAdd 
+}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'ALL' | 'ACTIVE' | 'PENDING'>('ALL');
   const [displayMode, setDisplayMode] = useState<'grid' | 'list'>('grid');
+  const [chattingWith, setChattingWith] = useState<User | null>(null);
 
   const getUserStats = (userId: string) => {
     const userTasks = tasks.filter(t => t.assignedTo === userId);
@@ -133,15 +145,15 @@ const TeamView: React.FC<TeamViewProps> = ({ users, tasks, onToggleUserStatus, o
             const stats = getUserStats(user.id);
             return (
               <div key={user.id} className="bg-slate-900 p-8 rounded-[2.5rem] border border-slate-800 shadow-sm hover:border-slate-700 transition-all group relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                  <button onClick={() => onUpdateStaff(user.id, {})} className="p-2 text-slate-600 hover:text-indigo-400"><Icons.Edit /></button>
-                  {user.role !== UserRole.ADMIN && <button onClick={() => onDeleteUser(user.id)} className="p-2 text-slate-600 hover:text-rose-400"><Icons.Trash /></button>}
+                <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex flex-col gap-2">
+                  <button onClick={() => onUpdateStaff(user.id, {})} className="p-2 bg-slate-950/50 rounded-xl text-slate-600 hover:text-indigo-400 border border-slate-800"><Icons.Edit /></button>
+                  {user.role !== UserRole.ADMIN && <button onClick={() => onDeleteUser(user.id)} className="p-2 bg-slate-950/50 rounded-xl text-slate-600 hover:text-rose-400 border border-slate-800"><Icons.Trash /></button>}
                 </div>
 
                 <div className="flex flex-col items-center mb-8">
                   <div className="relative mb-4">
                     <img src={user.picture} alt={user.name} className="w-20 h-20 rounded-3xl object-cover border-2 border-slate-800 group-hover:scale-105 transition-transform opacity-90" />
-                    <div className={`absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-4 border-slate-900 ${user.isActive ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+                    <div className={`absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-4 border-slate-900 ${user.isActive ? 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.3)]' : 'bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.3)]'}`} />
                   </div>
                   <h3 className="font-bold text-slate-100 text-lg mb-1">{user.name}</h3>
                   <span className={`text-[10px] font-black px-3 py-0.5 rounded-full uppercase tracking-widest border ${user.role === UserRole.ADMIN ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' : 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'}`}>{user.role}</span>
@@ -167,12 +179,21 @@ const TeamView: React.FC<TeamViewProps> = ({ users, tasks, onToggleUserStatus, o
                     </div>
                   </div>
 
-                  <button 
-                    onClick={() => onToggleUserStatus(user.id)}
-                    className={`w-full py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${user.isActive ? 'text-slate-500 border border-slate-800 hover:bg-slate-800' : 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20'}`}
-                  >
-                    {user.isActive ? 'Revoke Access' : 'Authorize Login'}
-                  </button>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button 
+                      disabled={!user.isActive || user.id === currentUser.id}
+                      onClick={() => setChattingWith(user)}
+                      className="py-3 bg-indigo-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all hover:bg-indigo-500 disabled:opacity-30 flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20"
+                    >
+                      <Icons.Activity className="w-3 h-3" /> Chat
+                    </button>
+                    <button 
+                      onClick={() => onToggleUserStatus(user.id)}
+                      className={`py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${user.isActive ? 'text-slate-500 border border-slate-800 hover:bg-slate-800' : 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/20'}`}
+                    >
+                      {user.isActive ? 'Lock' : 'Grant'}
+                    </button>
+                  </div>
                 </div>
               </div>
             );
@@ -217,6 +238,13 @@ const TeamView: React.FC<TeamViewProps> = ({ users, tasks, onToggleUserStatus, o
                     </td>
                     <td className="px-8 py-5 text-right">
                       <div className="flex items-center justify-end gap-1 opacity-20 group-hover:opacity-100 transition-opacity">
+                         <button 
+                           disabled={!user.isActive || user.id === currentUser.id}
+                           onClick={() => setChattingWith(user)}
+                           className="p-2 text-slate-500 hover:text-indigo-400 disabled:hidden"
+                          >
+                            <Icons.Activity className="w-4 h-4" />
+                          </button>
                          <button onClick={() => onUpdateStaff(user.id, {})} className="p-2 text-slate-500 hover:text-indigo-400"><Icons.Edit /></button>
                          <button onClick={() => onToggleUserStatus(user.id)} className={`p-2 ${user.isActive ? 'text-slate-500 hover:text-amber-400' : 'text-indigo-400 hover:text-indigo-300'}`}><Icons.CheckCircle /></button>
                          {user.role !== UserRole.ADMIN && <button onClick={() => onDeleteUser(user.id)} className="p-2 text-slate-500 hover:text-rose-400"><Icons.Trash /></button>}
@@ -228,6 +256,17 @@ const TeamView: React.FC<TeamViewProps> = ({ users, tasks, onToggleUserStatus, o
             </tbody>
           </table>
         </div>
+      )}
+
+      {chattingWith && (
+        <ChatInterface 
+          currentUser={currentUser}
+          targetUser={chattingWith}
+          tasks={tasks}
+          isOpen={!!chattingWith}
+          onClose={() => setChattingWith(null)}
+          onUpdateHistory={(uid, history) => onUpdateStaff(uid, { chatHistory: history })}
+        />
       )}
 
       {filteredUsers.length === 0 && (

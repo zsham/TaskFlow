@@ -18,6 +18,13 @@ export enum UserRole {
   STAFF = 'STAFF'
 }
 
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'model';
+  text: string;
+  timestamp: number;
+}
+
 export interface User {
   id: string;
   name: string;
@@ -27,6 +34,7 @@ export interface User {
   bio?: string;
   isActive: boolean; // Admin must approve
   joinedAt: number;
+  chatHistory?: ChatMessage[];
 }
 
 export interface SubTask {
